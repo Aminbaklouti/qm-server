@@ -14,8 +14,8 @@ module.exports = {
     check(req,res, next){
         token = req.cookies['token']
         if(!token){
-            console.log(req)
-            return res.send(req)
+            console.log(JSON.stringify(req.cookies))
+            return res.sendStatus(401)
         }
         jwt.verify(token, process.env.JWTSECRET, function(err, data){
             if(err){
