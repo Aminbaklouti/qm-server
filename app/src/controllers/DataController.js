@@ -3,6 +3,7 @@ const {Subject} = require('../../models');
 const {Element} = require('../../models');
 const {Level} = require('../../models');
 const {Detail} = require('../../models');
+var Sequelize = require('sequelize');
 
 module.exports = {
     async getIssues(req,res){
@@ -28,6 +29,14 @@ module.exports = {
                 main: req.body.issue
             }
             }).catch(err=>{
+                res.sendStatus(500)
+            });
+        res.json(DBsubIssues)
+    },
+    async getAllSubIssues(req,res){
+        const DBsubIssues = await Issue.findAll({
+            order: ["sub"],
+        }).catch(err=>{
                 res.sendStatus(500)
             });
         res.json(DBsubIssues)
@@ -83,5 +92,78 @@ module.exports = {
         }).catch(err=>{
             res.status(500)
         })
+    },
+    async getReportsByLevel(req,res){
+        const rawData = await Detail.findAll({
+            attributes: [
+                'level',
+                'index',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'num']
+            ],
+            group: ['subject', 'level', 'index'],
+            where: {
+                level: {
+                    [Sequelize.Op.or]: req.body.levels
+                },
+                subject: req.body.subject
+            }
+        })
+        res.send(rawData)
+    },
+    async compareByIssue(req,res){
+        const rawData = await Detail.findAll({
+            attributes: [
+                'subject',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'num']
+            ],
+            group: ['subject'],
+            where: {
+                issue: req.body.issue
+            },
+            order: [[Sequelize.fn('COUNT', Sequelize.col('id')), 'DESC']]
+        })
+        res.send(rawData)
+    },
+    async compareBySubIssue(req,res){
+        const rawData = await Detail.findAll({
+            attributes: [
+                'subject',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'num']
+            ],
+            group: ['subject'],
+            where: {
+                index: req.body.subIssue
+            },
+            order: [[Sequelize.fn('COUNT', Sequelize.col('id')), 'DESC']]
+        })
+        res.send(rawData)
+    },
+    async compareByIssueLevels(req,res){
+        const rawData = await Detail.findAll({
+            attributes: [
+                'level',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'num']
+            ],
+            group: ['level'],
+            where: {
+                issue: req.body.issue
+            },
+            order: [[Sequelize.fn('COUNT', Sequelize.col('id')), 'DESC']]
+        })
+        res.send(rawData)
+    },
+    async compareBySubIssueLevels(req,res){
+        const rawData = await Detail.findAll({
+            attributes: [
+                'level',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'num']
+            ],
+            group: ['level'],
+            where: {
+                index: req.body.subIssue
+            },
+            order: [[Sequelize.fn('COUNT', Sequelize.col('id')), 'DESC']]
+        })
+        res.send(rawData)
     }
 }
