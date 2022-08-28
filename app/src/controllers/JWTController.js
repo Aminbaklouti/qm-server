@@ -14,10 +14,12 @@ module.exports = {
     check(req,res, next){
         token = req.cookies['token']
         if(!token){
+            console.log(1)
             return res.sendStatus(401)
         }
         jwt.verify(token, process.env.JWTSECRET, function(err, data){
             if(err){
+                console.log(2)
                 return res.sendStatus(401)
             }
             return next();
@@ -26,11 +28,13 @@ module.exports = {
     checkToken(req,res){
         token = req.body.token
         if(!token){
+            console.log(3)
             return res.sendStatus(401)
         }
         jwt.verify(token, process.env.JWTSECRET, function(err, data){
             if(err){
                 console.log(err)
+                console.log(4)
                 return res.sendStatus(401)
             }
             return res.send('logged')
