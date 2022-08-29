@@ -7,7 +7,7 @@ const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
-
+const cookiesMiddleware = require('universal-cookie-express');
 
 const whitelist = ['https://qm.anouarmaalej.com', 'http://localhost:3000'];
 const corsOptions = {
@@ -21,6 +21,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+
+app.use(cookiesMiddleware())
 
 app.use(express.static(path.resolve(__dirname, '../qm-frontend/build')));
 
