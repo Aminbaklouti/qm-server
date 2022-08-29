@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies(req.headers.cookie);
 
 module.exports = {
     sign(req,res,user){
@@ -14,7 +17,7 @@ module.exports = {
     check(req,res, next){
         token = req.cookies['token']
         if(!token){
-            console.log(req.cookies)
+            console.log(cookies)
             return res.sendStatus(401)
         }
         jwt.verify(token, process.env.JWTSECRET, function(err, data){
