@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     sign(req,res,user){
-        return res.send(req.cookies)
+        
         var cookie = req.cookies.cookieName;
         if (cookie === undefined) {
             // no: set a new cookie
