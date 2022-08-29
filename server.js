@@ -12,6 +12,7 @@ require('dotenv').config()
 const whitelist = ['https://qm.anouarmaalej.com', 'http://localhost:3000'];
 const corsOptions = {
   credentials: true, 
+  exposedHeaders: ["set-cookie"],
   origin: (origin, callback) => {
     if(whitelist.includes(origin))
       return callback(null, true)
