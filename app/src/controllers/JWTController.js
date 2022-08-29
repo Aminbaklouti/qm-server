@@ -7,7 +7,7 @@ module.exports = {
                 res.status(400); 
                 return
             }
-            res.cookie('token',token, { maxAge: 900000, httpOnly: true, sameSite: 'None', secure: true });
+            res.cookie('token',token, { httpOnly: true, sameSite: 'None', secure: true });
             res.status(202).send(token)
 
         })
