@@ -12,9 +12,9 @@ module.exports = {
         })
     },
     check(req,res, next){
-        token = req.cookies['token']
+        token = req.body.token
         if(!token){
-            console.log(JSON.stringify(req))
+            console.log(token)
             return res.sendStatus(401)
         }
         jwt.verify(token, process.env.JWTSECRET, function(err, data){
@@ -37,6 +37,7 @@ module.exports = {
                 console.log(4)
                 return res.sendStatus(401)
             }
+            req.body.token = token;
             return res.send('logged')
         })
     }
