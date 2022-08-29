@@ -27,6 +27,7 @@ module.exports = {
     },
     checkToken(req,res){
         token = req.body.token
+        console.log(req.cookies)
         if(!token){
             console.log(3)
             return res.sendStatus(401)
