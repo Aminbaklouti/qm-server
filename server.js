@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
 
-const whitelist = ['https://qm.anouarmaalej.com', 'http://localhost:3000'];
+const whitelist = ['https://qm.anouarmaalej.com'];
 const corsOptions = {
   credentials: true, 
   exposedHeaders: ["set-cookie"],
