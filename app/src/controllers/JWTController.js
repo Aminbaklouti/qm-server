@@ -8,7 +8,7 @@ module.exports = {
             // no: set a new cookie
             var randomNumber=Math.random().toString();
             randomNumber=randomNumber.substring(2,randomNumber.length);
-            res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true, sameSite: 'None' });
+            res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true, sameSite: 'None', Secure: true });
             console.log('cookie created successfully');
         } else {
             // yes, cookie was already present 
