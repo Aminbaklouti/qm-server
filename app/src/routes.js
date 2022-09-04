@@ -4,6 +4,7 @@ const DataController = require('./controllers/DataController');
 const JWTController = require('./controllers/JWTController');
 
 module.exports = (app) => {
+    app.get("/", res.send('hey'));
     app.post("/login", AuthPolicies.login, AuthController.login);
 
     app.post("/check/JWT", JWTController.checkToken);
