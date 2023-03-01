@@ -20,7 +20,6 @@ module.exports = {
                 email: user.email,
                 role: user.role
             }
-            res.status(202).send('test')
             JWTController.sign(req,res,JWTuser)
         }else{
             res.status(400).send('Wrong password')

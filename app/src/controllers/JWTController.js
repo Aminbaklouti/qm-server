@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     sign(req,res,user){
+        console.log("ssss", process.env.JWTSECRET);
         jwt.sign({user}, process.env.JWTSECRET, {expiresIn: '1d'}, (err,token)=>{
             if(err){
                 res.status(400); 
