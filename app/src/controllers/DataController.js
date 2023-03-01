@@ -6,6 +6,9 @@ const {Detail} = require('../../models');
 var Sequelize = require('sequelize');
 
 module.exports = {
+    test(){
+        res.send('hey')
+    },
     async getIssues(req,res){
         const DBissues = await Issue.findAll({
             attributes: ["main"],
