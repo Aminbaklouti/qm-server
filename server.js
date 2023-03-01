@@ -14,8 +14,8 @@ const corsOptions = {
   credentials: true, 
   exposedHeaders: ["set-cookie"],
   origin: (origin, callback) => {
+    return callback(null, true)
     if(whitelist.includes(origin))
-      return callback(null, true)
 
       callback(new Error('Not allowed by CORS'));
   }
