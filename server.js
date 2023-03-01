@@ -31,9 +31,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-db.sequelize.sync({force : false}).then(() => {
-    console.log('synced');
+db.sequelize
+.authenticate()
+.then(() => {
+    console.log('Connection has been established successfully.');
+})
+.catch(err => {
+    console.error('Unable to connect to the database:', err);
 });
+
+// db.sequelize.sync({force : false}).then(() => {
+//     console.log('synced');
+// });
 
 require('./app/src/routes')(app) 
 
