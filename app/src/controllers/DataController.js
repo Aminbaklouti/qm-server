@@ -6,7 +6,7 @@ const {Detail} = require('../../models');
 var Sequelize = require('sequelize');
 
 module.exports = {
-    test(){
+    test(req,res){
         res.send('hey')
     },
     async getIssues(req,res){
